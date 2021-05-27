@@ -1,8 +1,21 @@
-# Container image that runs your code
-FROM alpine:3.10
+FROM ubuntu:18.04
 
-# Copies your code file from your action repository to the filesystem path `/` of the container
-COPY entrypoint.sh /entrypoint.sh
+ARG RUNNER_VERSION="2.278.0"
 
-# Code file to execute when the docker container starts up (`entrypoint.sh`)
-ENTRYPOINT ["/entrypoint.sh"]
+RUN apt-get update -y && apt-get upgrade -y && useradd -m docker
+
+RUN apt-get install -y curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev
+
+RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
+    && curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
+    && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
+
+RUN chown -R docker ~docker && /home/docker/actions-runner/bin/installdependencies.sh
+
+COPY start.sh start.sh
+
+RUN chmod +x start.sh
+
+USER docker
+
+ENTRYPOINT ["./start.sh"]
