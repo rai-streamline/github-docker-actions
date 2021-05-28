@@ -15,5 +15,7 @@ docker run \
 ```
 ### where
 *github-account* = your account name from github
+
 *repository* = the target repository where PHPCS will perform the check
+
 *access-token* = is the access token generated when creating a runner via **Settings -> Actions -> Runners** on the Github repository web page
