@@ -2,7 +2,7 @@
 
 `docker build -t docker-github-actions .`
 
-then
+## then
 
 ```
 docker run \
