@@ -1,6 +1,6 @@
 # to run:
 
-`docker build -t docker-github-actions .`
+`docker build -t github-docker-actions .`
 
 ## then
 
@@ -11,5 +11,5 @@ docker run \
   --env REPOSITORY=client-for-docker \
   --env ACCESS_TOKEN=access-token \
   --name runner \
-  docker-github-actions
+  github-docker-actions
 ```
