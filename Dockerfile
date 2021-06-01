@@ -7,11 +7,12 @@ RUN apt-get update -y && apt-get upgrade -y && useradd -m docker
 RUN apt-get install -y apt-transport-https curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev unzip
 RUN apt -y install software-properties-common
 RUN add-apt-repository ppa:ondrej/php
+RUN add-apt-repository ppa:git-core/ppa
 RUN apt-get update
-RUN apt-get install -y php7.4 php7.4-cli php7.4-json php7.4-curl php7.4-dom php7.4-xml php7.4-libxml php7.4-mbstring
+RUN apt-get install -y php7.4 php7.4-cli php7.4-json php7.4-curl php7.4-dom php7.4-xml php7.4-mbstring git
 
-RUN curl -L https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.18.6/php-cs-fixer.phar -o .github/build/php-cs-fixer
-RUN chmod a+x .github/build/php-cs-fixer
+RUN curl -L https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.18.6/php-cs-fixer.phar -o /home/docker/php-cs-fixer
+RUN chmod a+x /home/docker/php-cs-fixer
 
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
     && curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
